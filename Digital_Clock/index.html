@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8" />
+      <title>JavaScript Digital Clock</title>
+    </head>
+
+    <style>
+    body{
+        display: flex;
+        background-color:#1237A1;
+        justify-content: center;
+        align-items:center;
+        color: rgba(114, 179, 204, 0.966);
+    }
+    .container{
+        margin-top: 100px;
+        background-color: #00017A;
+        font-size: 60px;
+        font-family:orbitron;
+        letter-spacing: 7px;
+        padding: 100px;
+        box-shadow: 0 8px 16px 0 rgba(36, 18, 18, 0.8);
+        border-radius: 35px;
+    }
+    #dateContainer{
+        text-align: center;
+        font-family: orbintron;
+        color: #ffffff;
+        width: 500px;
+        font-size: 50px;
+        text-decoration:solid;
+    }
+    #clockContainer{
+        margin-top: 10px;
+        text-align: center;
+        font-family: orbintron;
+        color: #ffffff;
+        width: 500px;
+        font-size: 70px;
+    }
+     button {
+        display: inline-block;
+        background-color: #ffb900;
+        border-radius: 10px;
+        border: 4px double #ffde00;
+        color: #eeeeee;
+        text-align: center;
+        font-size: 28px;
+        padding: 12px;
+        margin-top: 40px;
+        width: 150px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin-left: 50px;
+     
+      }
+      button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+      button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+      button:hover {
+        background-color: #f7c2f9;
+      }
+      button:hover span {
+        padding-right: 25px;
+      }
+      button:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+    
+    </style>
+    <body>
+      
+      <div class="container">
+        <h1>Good Morning !!</h1>
+        <div id="dateContainer"></div>
+        <div id="clockContainer"></div>
+        <div>
+            <button onclick="StartClock()">Start</button>
+            <button onclick="StopClock()">Stop</button>
+        </div>
+      </div>
+      
+    </body>
+    <script>
+        (function showDate(){
+            var todayDate = new Date()
+            document.getElementById("dateContainer").innerText= todayDate.toDateString();
+        })()
+     
+
+        function showTime() {
+          var date = new Date();
+          var h = date.getHours();
+          var m = date.getMinutes();
+          var s = date.getSeconds();
+          var shift = "AM";
+
+    
+          if(h == 0){
+              h = 12;
+          }
+          if (h > 12){
+              h = h - 12;
+              shift = "PM";
+          }
+          h = (h<10) ? "0"+ h : h
+          m = (m<10) ? "0"+ m : m
+          s = (s<10) ? "0"+ s : s
+
+          var time = h + ":" + m + ":" + s + "  " + shift;
+
+          document.getElementById("clockContainer").innerText = time;
+        }
+        showTime();
+        
+        // function showTime(){
+        //     var clockTime = new Date().toLocaleTimeString([],{hour: '2-digit', minute:'2-digit', second:'2-digit'});
+        //     document.getElementById("clockContainer").innerText = clockTime;
+        // }
+
+        var IntervalRef;
+         function StartClock(){
+            IntervalRef = setInterval(showTime, 1000);
+        }
+        function StopClock(){
+            clearInterval(IntervalRef)
+        }
+      </script>
+  </html>
+
